@@ -1,38 +1,29 @@
-#include <cstdio>
-
-/// método totalmente precario mas funciona
-/// precisa ser reescrito
+#include <iostream>		/// cin/cout
+#include <string>		/// string/size
 
 using namespace std;
    
 int main() {
-    int n;
-    char c;
+	int times, led_values[10] = {6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
+	string num;
+    
+	cin >> times;
+    
+	for (int i = 1; i <= times; i++) {
+		int ans = 0;
 
-    scanf ("%d", &n);
+		cin >> num;
+		
+		int strSize = num.size();
+		
+        for (int x = 0; x < strSize; x++) {
+        	/// converte o valor em string para um valor numerico
+        	/// e associa a sequencia do valor no vetor 'led_values'
+			ans += led_values[num[x]-'0'];
+		}
 
-    for (int i = 0; i < n; i++) {
-        int ans = 0;
-  
-        while (1) {
-            c = getchar();
-            if (c == '\n') break;
-            switch (c) {
-                case '0': ans += 6; break;
-                case '1': ans += 2; break;
-                case '2': ans += 5; break;
-                case '3': ans += 5; break;
-                case '4': ans += 4; break;
-                case '5': ans += 5; break;
-                case '6': ans += 6; break;
-                case '7': ans += 3; break;
-                case '8': ans += 7; break;
-                case '9': ans += 6; break;
-            }
-        }
-  
-        printf ("%d leds\n", ans);
-    }
+		cout << ans << " leds\n";
+	}
   
     return 0;
 }
