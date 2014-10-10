@@ -16,9 +16,9 @@ int main() {
 		
 		int strSize = num.size();
 		
-        for (int x = 0; x < strSize; x++) {
-        	/// converte o valor em string para um valor numerico
-        	/// e associa a sequencia do valor no vetor 'led_values'
+        	for (int x = 0; x < strSize; x++) {
+        		/// converte o valor em string para um valor numerico
+        		/// e associa a sequencia do valor no vetor 'led_values'
 			ans += led_values[num[x]-'0'];
 		}
 
