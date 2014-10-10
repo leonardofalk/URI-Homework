@@ -1,5 +1,5 @@
-#include <iostream>
-#include <string>
+#include <iostream>		/// cin/cout/cin.get
+#include <string>		/// string/size
 
 using namespace std;
 
