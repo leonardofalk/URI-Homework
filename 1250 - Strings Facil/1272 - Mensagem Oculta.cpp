@@ -1,37 +1,32 @@
 #include <iostream>
-#include <iomanip>
 #include <string>
-#include <stdio.h>
- 
+#include <sstream>
  
 using namespace std;
  
 int main () {
-int caso,j;;
- 
-string vetpalavra;
-cin >> caso;
-for (int i = 0; i < caso; i ++){
-    getline(cin,vetpalavra);
-    int tam = vetpalavra.size();
-    for ( j = 0; j < tam; j++ ) {
-         vetpalavra[j] = vetpalavra[j];
- 
- 
-    if (vetpalavra[j]== vetpalavra[0]){
-            if(vetpalavra[j] < 'z' and vetpalavra[j] > 'a'){
-            cout << vetpalavra[0];
-         }
-    }
-    if (vetpalavra[j] < 'z' and vetpalavra[j] > 'a'){
-        if(vetpalavra[j-1]== ' ' ){
-        cout << vetpalavra[j];
-            }
- 
-        }
-        if(j == vetpalavra.size()-1){
-        cout << endl;
-               }
-            }
-         }
-    }
+	int times;
+	
+	/// le o numero de casos de teste
+	cin >> times;
+	/// le a linha nova pra limpar o buffer
+	cin.get();
+	
+	for (int i = 1; i <= times; i++) {
+		string words, word, final = "";
+		
+		/// pega a linha da frase e guarda
+		getline(cin, words);
+		/// cria uma stream com a frase inteira
+		stringstream palavras(words);
+		/// separa as palavras da frase
+		while (palavras >> word) {
+			/// pega a primeira letra de cada palavra e concatena no valor final
+			final = final + word[0];
+		}
+		/// mostra o valor final
+		cout << final << endl;
+	}
+	
+	return 0;
+}
