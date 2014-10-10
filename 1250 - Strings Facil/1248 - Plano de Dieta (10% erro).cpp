@@ -2,6 +2,8 @@
 #include <string>
 #include <algorithm>
 
+/// 10% das respostas com erro
+
 using namespace std;
 
 int main() {
