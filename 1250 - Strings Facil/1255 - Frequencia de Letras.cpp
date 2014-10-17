@@ -1,58 +1,40 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include <cmath>
 #include <algorithm>
-#include <utility>
-
-/*
-    falta olhar, entender e melhorar o codigo
-    copiado de https://raw.githubusercontent.com/jvrmaia/uri/master/strings/p1255.cpp
-*/
-
+ 
 using namespace std;
-
-int cmp(pair<int, int> p1, pair<int, int> p2)
-{
-    if (p1.second == p2.second)
-        return p1.first < p2.first;
-    else
-        return p1.second < p2.second;
-}
-
-int main()
-{
-    int n;
-    cin >> n;
-    string line;
-    while (getline(cin,line)) {
-        if (line == "") continue;
-        vector<pair<int, int> > v;
-        vector<pair<int, int> >::iterator it;
-        for (int i = 0; i < 27; i++) v.push_back(make_pair(i, 9999));
-        string::iterator jt;
-        int most = -1;
-        for (jt = line.begin(); jt != line.end(); ++jt) {
-            int pos;
-            if (*jt >= 'A' && *jt <= 'Z') pos = *jt - 'A';
-            else if (*jt >= 'a' && *jt <= 'z') pos = *jt - 'a';
-            else continue;
-            if (pos >= 0 && pos <= 26) {
-                if (v[pos].second == 9999) {
-                    v[pos].second = 1;
-                    if (v[pos].second > most) most = v[pos].second;
-                }
-                else {
-                    v[pos].second++;
-                    if (v[pos].second > most) most = v[pos].second;
-                }
+ 
+int main() {
+    int times, maxVal;
+    string phrase;
+     
+    cin >> times;
+    cin.get();
+     
+    for (int x = 1; x <= times; x++) {
+        int letters[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        maxVal = 0;
+         
+        getline(cin, phrase);
+        transform(phrase.begin(), phrase.end(), phrase.begin(), ::tolower);
+         
+        int phraseSize = phrase.size();
+         
+        for (int i = 0; i < phraseSize; i++) {
+            if (isalpha(phrase[i])) {
+                int pos = phrase[i]-97;
+                letters[pos]++;
+                maxVal = max(maxVal, letters[pos]);
             }
         }
-        sort(v.begin(), v.end(), cmp);
-        for (it = v.begin(); it != v.end(); ++it) {
-            if (it->second == most)
-                cout << (char)('a'+it->first);
+         
+        for (int i = 0; i < 26; i++) {
+            if (letters[i] >= maxVal) {
+                cout << char(i+97);
+            }
         }
+         
         cout << endl;
     }
-    return 0;
 }
