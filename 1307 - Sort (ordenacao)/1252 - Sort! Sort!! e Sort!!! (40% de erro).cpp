@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 
-/ * erro na função de comparação */
+/* erro na função de comparação */
 
 using namespace std;
 
