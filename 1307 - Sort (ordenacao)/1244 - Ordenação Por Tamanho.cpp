@@ -3,7 +3,15 @@
 #include <algorithm>
 #include <sstream>
 
-/* using 'stable_sort' seems to work while 'sort' gives wrong answer of 50 % */
+/*
+    using 'stable_sort' seems to work while 'sort' gives wrong answer of 50 %
+    
+    Explanation from the original documentation:
+    
+    "Sorts the elements in the range [first,last) into ascending order, like 'sort',
+    but 'stable_sort' preserves the relative order of the elements with equivalent values."
+
+*/
 
 using namespace std;
 
