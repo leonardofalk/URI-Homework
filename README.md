@@ -1,4 +1,4 @@
-Homework URI
+URI Homework
 ============
 
-Repositório para homeworks do URI Online Judge.
+Repository for homeworks in URI Online Judge.
