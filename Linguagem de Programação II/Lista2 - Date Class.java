@@ -67,7 +67,7 @@ public class Date {
 	}
 		
 	public static boolean validateDate()
-		return (month <= 12 && month) >= 1 && 
+		return (month <= 12 && month >= 1 && 
 		       (day >= 1 && (day <= monthsTotalDays[month - 1] or (isLeapYear() && month == 2 && day <= 29))) && 
 		       (year > 0);
 	}
