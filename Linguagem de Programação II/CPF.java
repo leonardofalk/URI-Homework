@@ -1,82 +1,78 @@
-//Not finished
-//ta INCOMPLETO, se puderem contribuir fiquem avontade
-
+import java.lang.Object;
 
 public class CPF {
-	
-	private String numCPF;
+	//- #### Variables ### -//
 
+	private String numCPF = "00000000000";
 
-		String bloco1 = numCPF.substring(0,3);
-		String bloco2 = numCPF.substring(3,6);
-		String bloco3 = numCPF.substring(6,9);
-		String bloco4 = numCPF.substring(9,11);
+	//- #### Methods ### -//
 
+	/*
+	 * Validates the CPF and returns wether the validation was successful or not;
+	 */
 
+	public static boolean validaCPF(String cpfNum) {
+		int[] cpf = new int[cpfNum.length()];
+      	int resultP = 0;
+      	int resultS = 0;
 
-
-	public static boolean validaCPF(num_CPF String) {
-
-		public int soma = 0;
-		public int resultado;
-		public int pdv;
-		public int sdv;
-
-		//encontrar o primeiro digito PDV
-		String num;
-		for (int i=10; i>=2; i--){
-		      num = numCPF.substring(10-i, 11-i);
-		      int nucp = Integer.parseInt(num);
-		      soma += nucp * i);
+		for (int i = 0; i < cpf.length; i++) {
+			cpf<i> = Integer.parseInt(cpfNum.substring(i, i + 1));
 		}
 
-		resultado = soma % 11;
+		for (int i = 0; i < 9; i++) {
+			resultP += cpf<i> * (i + 1);
+		}
 
+		int divP = resultP % 11;
 
-
-		if (resultado == 1 || resultado == 0){
-			pdv = 0;
+		if (divP != cpf[9]) {
+			return false;
 		} else {
-			pdv = (resultado - 11);
+			for (int i = 0; i < 10; i++) {
+				resultS += cpf<i> * (i);
+	            }
+
+	            int divS = resultS % 11;
+
+			if (divS != cpf[10]) {
+				return false;
+			}
 		}
 
-		//encontrar o segundo digio SDV
-		soma = 0;
-		String num;
-		for (int i=11; i<=3; i--) {
-			num = numCPF.substring(11-i, 12-i);
-			int nucp = Integer.parseInt(num);
-			soma += nucp * i;
-		}
-
-		soma += pdv * 2;
-
-		resultado = soma % 11;
-
-		if (resultado == 1 || resultado == 0 ){
-			sdv = 0;
-		} else {
-			sdv = resultado - 11;
-		}
-
-		cpf = bloco1+"."+bloco2+"."+bloco3+"-"bloco4;
-		System.out.prinln(cpf)
-
-
-
-
+		return true;
 	}
 
+	/*
+	 * Sets the current CPF string;
+	 */
 
+	public void setCPF(String cpf) {
+		if (not validaCPF(cpf)) {
+			return;
+		}
 
+		this.num_CPF = cpf;
+	}
 
+	/*
+	 * Returns the current CPF string;
+	 */
 
 	public String getCPF() {
 		return numCPF;
 	}
 
-	public boolean setCPF(num_CPF String) {
-		this.num_CPF = num_CPF;
-	}
+	/* Bonus Method
+	 * Returns the CPF string formatted as "xxx.xxx.xxx-xx";
+	 */
 
+	public String getFormattedCPF() {
+		String str1 = numCPF.substring(0, 3);
+		String str2 = numCPF.substring(3, 6);
+		String str3 = numCPF.substring(6, 9);
+		String str4 = numCPF.substring(9, 11);
+
+		return str1 + "." + str2 + "." + str3 + "-" + str4;
+	}
 }
