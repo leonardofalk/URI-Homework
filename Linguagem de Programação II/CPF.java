@@ -25,9 +25,9 @@ public class CPF {
 		//encontrar o primeiro digito PDV
 		String num;
 		for (int i=10; i>=2; i--){
-      num = numCPF.substring(10-i, 11-i);
-      int nucp = Integer.parseInt(num);
-      soma += nucp * i);
+		      num = numCPF.substring(10-i, 11-i);
+		      int nucp = Integer.parseInt(num);
+		      soma += nucp * i);
 		}
 
 		resultado = soma % 11;
