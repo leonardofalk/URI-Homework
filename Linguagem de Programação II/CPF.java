@@ -1,4 +1,4 @@
-import java.lang.Object;
+import java.lang.Integer;
 
 public class CPF {
 	//- #### Variables ### -//
@@ -13,15 +13,15 @@ public class CPF {
 
 	public static boolean validaCPF(String cpfNum) {
 		int[] cpf = new int[cpfNum.length()];
-      	int resultP = 0;
-      	int resultS = 0;
+		int resultP = 0;
+		int resultS = 0;
 
 		for (int i = 0; i < cpf.length; i++) {
-			cpf<i> = Integer.parseInt(cpfNum.substring(i, i + 1));
+			cpf[i] = Integer.parseInt(cpfNum.substring(i, i + 1));
 		}
 
 		for (int i = 0; i < 9; i++) {
-			resultP += cpf<i> * (i + 1);
+			resultP += cpf[i] * (i + 1);
 		}
 
 		int divP = resultP % 11;
@@ -30,7 +30,7 @@ public class CPF {
 			return false;
 		} else {
 			for (int i = 0; i < 10; i++) {
-				resultS += cpf<i> * (i);
+				resultS += cpf[i] * (i);
 	            }
 
 	            int divS = resultS % 11;
@@ -48,11 +48,11 @@ public class CPF {
 	 */
 
 	public void setCPF(String cpf) {
-		if (not validaCPF(cpf)) {
-			return;
+		if (validaCPF(cpf)) {
+			numCPF = cpf;
+		} else {
+		    return;
 		}
-
-		this.num_CPF = cpf;
 	}
 
 	/*
