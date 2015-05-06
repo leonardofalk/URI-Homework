@@ -19,13 +19,13 @@ int BellmanFord(int n_arestas, int n_nodos, int origem, int destino) {
     int i,j,trocou=1;
     int distancia[65];
 
-    for (i = 0; i < n_nodos; i++) {
+    for (i = 0; i <= n_nodos; i++) {
         distancia[i] = INFINITO;
     }
 
     distancia[origem]=0;
 
-    for (i = 0; i < n_nodos && trocou; i++) { // se nenhuma iteração teve efeito, ~trocou portanto sai
+    for (i = 0; i <= n_nodos && trocou; i++) { // se nenhuma iteração teve efeito, ~trocou portanto sai
         trocou = 0;
         for (j = 0; j < n_arestas; j++) {
             if (distancia[arestas[j].destino] > distancia[arestas[j].origem] + arestas[j].peso) {
