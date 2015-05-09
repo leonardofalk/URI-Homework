@@ -91,12 +91,40 @@ int main() {
                 arestas[cont].peso = 1;
                 cont++;
             }
+            if( (i - 2) > 0 && (j + 1) <TAM  ) {
+                arestas[cont].origem = tabuleiro[i][j];
+                arestas[cont].destino = tabuleiro[i - 2][j + 1];
+                arestas[cont].peso = 1;
+                cont++;
+            }
+            if( (i - 2) > 0 && (j - 1) >= 1 ) {
+                arestas[cont].origem = tabuleiro[i][j];
+                arestas[cont].destino = tabuleiro[i - 2][j - 1];
+                arestas[cont].peso = 1;
+                cont++;
+            }
         }
     }
 
-    int origem = 1;
-    int destino = 8;
-    cout << BellmanFord(cont, 64, origem, destino);
+    int origem;
+    int destino;
+
+
+
+    string de, para;
+
+    while (cin >> de >> para){
+
+        origem = (de[0]-'a')*8 + de[1]-'0';
+        destino = (para[0]-'a')*8 + para[1]-'0';
+    
+        cout << "To get from " << de << " to " << para << " takes " << BellmanFord(cont, 64, origem, destino) << " knight moves." << endl;
+        
+        if (de == para){
+            break;
+        }
+
+    }
 
 
 
