@@ -1,78 +1,59 @@
-import java.lang.Integer;
-
 public class CPF {
-	//- #### Variables ### -//
-
-	private String numCPF = "00000000000";
-
-	//- #### Methods ### -//
-
-	/*
-	 * Validates the CPF and returns wether the validation was successful or not;
-	 */
-
-	public static boolean validaCPF(String cpfNum) {
-		int[] cpf = new int[cpfNum.length()];
-		int resultP = 0;
-		int resultS = 0;
-
-		for (int i = 0; i < cpf.length; i++) {
-			cpf[i] = Integer.parseInt(cpfNum.substring(i, i + 1));
-		}
-
-		for (int i = 0; i < 9; i++) {
-			resultP += cpf[i] * (i + 1);
-		}
-
-		int divP = resultP % 11;
-
-		if (divP != cpf[9]) {
-			return false;
-		} else {
-			for (int i = 0; i < 10; i++) {
-				resultS += cpf[i] * (i);
-	            }
-
-	            int divS = resultS % 11;
-
-			if (divS != cpf[10]) {
-				return false;
+	private String numCPF;
+	
+	public static final int TAMANHOCPF = 11;
+	
+	public static boolean validaCPF(String num_CPF) {
+		boolean result = false;
+		
+		if (num_CPF != null && num_CPF.length() == TAMANHOCPF) {
+			int soma_PDV = 0;
+			
+			for (int i = 0; i < TAMANHOCPF-2; i++) {
+				int digito = Character.getNumbericValue( num_CPF.CharAt(i) );
+				
+				soma_PDV += (10 - i) * digito;
+			}
+			
+			int PDV = soma_PDV % 11;
+			
+			if (PDV < 2) {
+				PDV = 0;
+			} else {
+				PDV = 11 - soma_PDV;
+			}
+			
+			if (PDV == Character.getNumericValue(num_CPF.CharAt(TAMANHOCPF-2))) {
+				int somaSDV = PDV * 2;
+				
+				for (int i = 0; i < TAMANHOCPF-2; i++) {
+					int digito = Character.getNumbericValue( num_CPF.CharAt(i) );
+					
+					somaSDV += (11 - i) * digito;
+				}
+				
+				int SDV = somaSDV % 11;
+				
+				if (SDV < 2) {
+					SDV = 0;
+				} else {
+					SDV = 11 - somaSDV;
+				}
+				
+				resultado = (SDV == Character.getNumericValue(num_CPF.charAt(TAMANHOCPF-1)));
 			}
 		}
-
-		return true;
+		
+		return resultado;
 	}
-
-	/*
-	 * Sets the current CPF string;
-	 */
-
-	public void setCPF(String cpf) {
-		if (validaCPF(cpf)) {
-			numCPF = cpf;
-		} else {
-		    return;
+	
+	public void setCPF(String num_CPF) {
+		if (validaCPF(num_CPF)) {
+			numCPF = num_CPF;
 		}
 	}
-
-	/*
-	 * Returns the current CPF string;
-	 */
-
+	
 	public String getCPF() {
 		return numCPF;
-	}
-
-	/* Bonus Method
-	 * Returns the CPF string formatted as "xxx.xxx.xxx-xx";
-	 */
-
-	public String getFormattedCPF() {
-		String str1 = numCPF.substring(0, 3);
-		String str2 = numCPF.substring(3, 6);
-		String str3 = numCPF.substring(6, 9);
-		String str4 = numCPF.substring(9, 11);
-
-		return str1 + "." + str2 + "." + str3 + "-" + str4;
 	}
 }
