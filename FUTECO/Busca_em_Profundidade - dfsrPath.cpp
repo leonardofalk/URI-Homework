@@ -11,6 +11,7 @@ int cnt, lbl[maxV];
 int V,A, adj[25][25];
 string espacos="";
 int entrou = 0;
+
 void pathR (Vertex v,string espacos) {
     Vertex w;
     lbl[v] = cnt++;
