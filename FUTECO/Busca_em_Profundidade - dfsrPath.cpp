@@ -48,7 +48,6 @@ int DIGRAPHpath (void) {
 }
 
 
-
 int main(void) {
     //freopen("dfsrPath.in","r",stdin);
     int orig,dest;
