@@ -1,9 +1,7 @@
 #include <iostream>
 #include <queue>
  
- 
 using namespace std;
- 
  
 int main(){
     queue <int> q;
@@ -26,7 +24,5 @@ int main(){
             q.pop();
         }
     }
- 
- 
- return 0;
+return 0;
 }
