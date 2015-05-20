@@ -3,9 +3,7 @@
 #include <cstdio>
 #define Vertex int
 
-
 using namespace std;
-
 
 int cnt, lbl[maxV];
 int V,A, adj[25][25];
