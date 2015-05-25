@@ -24,5 +24,5 @@ int main(){
             q.pop();
         }
     }
-return 0  /* VAI TOMA NO CU FALK*/;
+    return 0;
 }
