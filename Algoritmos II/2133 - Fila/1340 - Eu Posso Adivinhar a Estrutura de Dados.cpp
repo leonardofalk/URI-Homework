@@ -7,8 +7,6 @@ using namespace std;
 
 int main(){
 
-    freopen ("1340_in.in", "r", stdin);
-
     int N;
 
     while( cin >> N ) {
