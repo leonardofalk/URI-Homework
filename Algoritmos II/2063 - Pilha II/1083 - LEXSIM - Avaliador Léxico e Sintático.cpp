@@ -1,109 +1,129 @@
 #include <iostream>
+#include <cstdio>
+#include <cstdlib>
 #include <stack>
 #include <map>
-
-/* 20 % error
- *
- * Errors Examples:
- * b)+(a
- * a+(b)
- */
- 
-
-#define TYPE_NONE 0
-#define TYPE_LETTER 1
-#define TYPE_NUM 2
-#define TYPE_OPERATOR 3
-#define TYPE_OTHER 4
  
 using namespace std;
  
-int lexCheck(char c) {
-    if (isalpha(c)) {
-        return TYPE_LETTER;
-    } else if (isdigit(c)) {
-        return TYPE_NUM;
-    } else if (c == '(' or c == ')') {
-        return TYPE_OTHER;
-    } else if (c == '^' or c == '*' or c == '/' or c == '+' or c == '-' or c == '>' or c == '<' or c == '=' or c == '#' or c == '.' or c == '|') {
-        return TYPE_OPERATOR;
-    }
-     
-    return TYPE_NONE;
-}
+int main(){
+    map<char, int> prioridade;
+    prioridade['^'] = 6;
+    prioridade['*'] = 5;
+    prioridade['/'] = 5;
+    prioridade['+'] = 4;
+    prioridade['-'] = 4;
+    prioridade['>'] = 3;
+    prioridade['<'] = 3;
+    prioridade['='] = 3;
+    prioridade['#'] = 3;
+    prioridade['.'] = 2;
+    prioridade['|'] = 1;
+    prioridade['('] = 0;
  
-int main() {
-    map<char, int> prior = {{'^', 6}, {'*', 5}, {'/', 5}, {'+', 4}, {'-', 4}, {'>', 3}, {'<', 3}, {'=', 3}, {'#', 3}, {'.', 2}, {'|', 1}};
-    string line;
-     
-    while(cin >> line) {
-        string errorMsg = "", equation = "";
-        bool showError = false;
-        int lastCheck = lexCheck(line[0]);
-        stack<int> pilha;
-         
-        for (int i = 0; line[i] != '\0'; i++) {
-            char c = line[i];
-             
-            if (i > 0) {
-                int curCheck = lexCheck(c);
-                 
-                if (curCheck == lastCheck) {
-                    showError = true;
-                    errorMsg = "Syntax Error!\n";
+    string exp;
+ 
+    while(getline(cin, exp)){
+        stack<char> s;
+        string pos = "";
+        bool lexi_error = false;
+        bool sint_error = false;
+ 
+        for(int i=0; exp[i]!='\0'; i++){
+            char ch = exp[i];
+ 
+            if(isalnum(ch)){
+                if(i == 0 or !isalnum(exp[i-1])){
+                    pos += ch;
+                } else {
+                    sint_error = true;
                     break;
-                } else {
-                    lastCheck = curCheck;
                 }
-            }
-             
-            if (not (isalnum(c) or (prior.find(c) != prior.end()) or c == '(' or c == ')')) {
-                showError = true;
-                errorMsg = "Lexical Error!\n";
-                break;
+            } else if(ch == '('){
+                s.push(ch);
+            } else if(ch == ')'){
+                while(!s.empty() and s.top() != '('){
+                    pos += s.top();
+                    s.pop();
+                }
+ 
+                if(!s.empty()){
+                    s.pop();
+                } else {
+                    sint_error = true;
+                    break;
+                }
+            } else if(prioridade.count(ch)){
+                while(!s.empty() and prioridade[s.top()] >= prioridade[ch]){
+                    pos += s.top();
+                    s.pop();
+                }
+ 
+                s.push(ch);
             } else {
-                if (prior[c] > 0 or c == '(' or c == ')') {
-                    if (pilha.size() == 0 or c == '(') {
-                        pilha.push(c);
-                    } else if (c == ')'){
-                        while(pilha.size() > 0 and pilha.top() != '(') {
-                            equation += pilha.top();
-                            pilha.pop();
-                        }
-                         
-                        pilha.pop();
-                    } else {
-                        while (pilha.size() > 0 and prior[c] <= prior[pilha.top()]) {
-                            equation += pilha.top();
-                            pilha.pop();
-                        }
-                         
-                        pilha.push(c);
-                    }
+                lexi_error = true;
+                break;
+            }
+        }
+ 
+        while(!s.empty() and s.top() != '('){
+            pos += s.top();
+            s.pop();
+        }
+ 
+        if(!s.empty()){
+            sint_error = true;
+        }
+ 
+        stack<string> valid;
+ 
+        if(!lexi_error and !sint_error){
+            pos += '\0';
+ 
+            for(int i=0; pos[i]!='\0'; i++){
+                char ch = pos[i];
+ 
+                if(isalnum(ch)){
+                    string temp = "" + ch;
+                    valid.push(temp);
                 } else {
-                    equation += c;
+                    string var1, var2;
+ 
+                    if(!valid.empty()){
+                        var2 = valid.top();
+                        valid.pop();
+                    } else {
+                        sint_error = true;
+                        break;
+                    }
+ 
+                    if(!valid.empty()){
+                        var1 = valid.top();
+                        valid.pop();
+                    } else {
+                        sint_error = true;
+                        break;
+                    }
+ 
+                    valid.push(var1 + ch + var2);
                 }
             }
-        }
-         
-        if (not (showError)) {
-            while (pilha.size() > 0) {
-                if (pilha.top() == '(') {
-                    showError = true;
-                    errorMsg = "Syntax Error!\n";
-                }
-                 
-                equation += pilha.top();
-                pilha.pop();
+ 
+            if(valid.size() != 1){
+                sint_error = true;
             }
         }
-         
-        if (not (showError)) {
-            cout << equation << endl;
+ 
+        if(lexi_error){
+            printf("Lexical Error!\n");
+ 
+        } else if(sint_error){
+            printf("Syntax Error!\n");
+ 
         } else {
-            cout << errorMsg;
+            printf("%s\n", pos.c_str());
         }
     }
- 
+    
     return 0;
 }
