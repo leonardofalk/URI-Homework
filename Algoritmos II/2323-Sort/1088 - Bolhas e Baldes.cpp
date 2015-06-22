@@ -56,7 +56,6 @@ vetor mergeSort(int esquerda, int direita) {
 }
 
 int main () {
-    meio
     int n, x;
 
     while((cin >>n) && n) {
