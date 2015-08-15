@@ -16,9 +16,7 @@ void BT(string prefixa, string infixa, int p, int q) {
         cout << infixa[pos];
     }
 }
-  
-  
-  
+
 int main(){
     string prefixa, infixa;
      
